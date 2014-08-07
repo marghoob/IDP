@@ -3,12 +3,8 @@
 import sys
 import os
 import threading
-
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])+'/'
-    return path, filename
+import shutil
+from idp_utils import *
 
 #Main**************************************************************************#
 def main():
@@ -25,7 +21,6 @@ def main():
     input_file = open(input_filename, 'r' )
     header = input_file.readline()
     input_files = []
-    output_filenames = []
     for thread_idx in range(num_threads):
         input_files.append(open(input_filename + '.' + str(thread_idx), 'w'))
         input_files[-1].write(header)
@@ -39,11 +34,7 @@ def main():
         num_isoforms = int(line.split()[1])
         input_files[thread_idx].write(line)
         
-        for i in range(6):
-            input_files[thread_idx].write(input_file.readline())
-        for i in range(num_isoforms):
-            input_files[thread_idx].write(input_file.readline())
-        for i in range(2):
+        for i in xrange(6 + num_isoforms + 2):
             input_files[thread_idx].write(input_file.readline())
     
         thread_idx = (thread_idx + 1) % num_threads
@@ -65,16 +56,12 @@ def main():
     for thread in threads_list:
         thread.join()
         
-    cat_cmnd = 'cat '
-    rm_cmnd = "rm "
-    for thread_idx in range(num_threads):
-        cat_cmnd += output_filename + '.' + str(thread_idx) + " "
-        rm_cmnd += output_filename + '.' + str(thread_idx)  + " " + input_filename + '.' + str(thread_idx) + " "
-        
-    cat_cmnd += ' > ' + output_filename
-    log_command(cat_cmnd)
-    log_command(rm_cmnd)
-    
+    with open(output_filename, "w") as output_file_fd:
+        for thread_idx in range(num_threads):
+            with open("%s.%d" % (output_filename, thread_idx), "r") as src_fd:
+                shutil.copyfileobj(src_fd, output_file_fd)
+            os.remove("%s.%d" % (output_filename, thread_idx))
+            os.remove("%s.%d" % (input_filename, thread_idx))
         
 
 if __name__ == '__main__':

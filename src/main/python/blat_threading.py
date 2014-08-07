@@ -5,6 +5,7 @@ import os
 import threading
 import string
 import shutil
+from idp_utils import *
 from binaidp import log_command
 
 ################################################################################
@@ -21,9 +22,6 @@ else:
     print("usage: python2.6 blat_threading.py p -t=DNA -q=DNA ~/annotations/hg19/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa /usr/bin/python intact_SM.fa intact_SM.fa.psl")
     print("or ./blat_threading.py p -t=DNA -q=DNA ~/annotations/hg19/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa /usr/bin/python intact_SM.fa intact_SM.fa.psl")
     sys.exit(1)
-################################################################################
-def GetPathAndName(pathfilename):
-    return os.path.realpath(os.path.dirname(pathfilename)), os.path.basename(pathfilename)
 
 ################################################################################
 SR_path, SR_filename = GetPathAndName(SR_pathfilename)

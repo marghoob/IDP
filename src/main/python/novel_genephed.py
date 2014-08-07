@@ -2,6 +2,7 @@
 
 import sys
 import os
+from idp_utils import *
 
 if len(sys.argv) >= 3:
     ref_refFlat_filename = sys.argv[1]
@@ -11,15 +12,6 @@ else:
     print ("usage: python novel_genephed.py ref_refFlat_filename tag_refFlat_filename  output_filename")
     print ("or ./novel_genephed.py ref_refFlat_filename tag_refFlat_filename output_filename")
     sys.exit(1)
-
-################################################################################
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])+'/'
-    if len(ls)==1:
-        path="./"
-    return path, filename
 
 def addrefFlat(ref_iso_dt,ref_dt, ref_refFlat_filename):
     ref=open(ref_refFlat_filename,'r')

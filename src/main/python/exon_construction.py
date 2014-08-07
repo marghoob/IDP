@@ -2,6 +2,7 @@
 
 import sys
 import os
+from idp_utils import *
 from numpy import *
 
 if len(sys.argv) >= 4:
@@ -12,12 +13,6 @@ else:
     print("usage: python exon_construction.py refFlat.txt junction.bed")
     print("or ./exon_construction.py refFlat.txt junction.bed")
     sys.exit(1)
-################################################################################
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])+'/'
-    return path, filename
 
 def check_jun(jun_list1,jun_list2):
     if (not jun_list1[1]<jun_list2[0]) and (not jun_list2[1]<jun_list1[0]):

@@ -2,6 +2,7 @@
 
 import sys
 import os
+from idp_utils import *
 
 if len(sys.argv) >= 4 :
     ref_gpd_filename = sys.argv[1]
@@ -11,15 +12,6 @@ else:
     print("usage:ref_gpd_filename tag_gpd_filename output_filename_suffix")
     print("or ./")
     sys.exit(1)
-
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])
-    if path == "":
-        path = "."
-    path = path +'/'
-    return path, filename
 
 output_filename_suffix_path, output_filename_suffix_filename = GetPathAndName(output_filename_suffix)
 novel_output_filename = output_filename_suffix_path + "negative_" + output_filename_suffix_filename 

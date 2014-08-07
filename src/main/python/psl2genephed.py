@@ -2,6 +2,7 @@
 
 import sys
 import os
+from idp_utils import *
 
 if len(sys.argv) >= 3:
     psl_filename = sys.argv[1]
@@ -13,14 +14,6 @@ else:
     print("usage:psl2genephed.py psl_file skip_Nine Lgap output_filename")
     print("or ")
     sys.exit(1)
-################################################################################
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])+'/'
-    if path == "/":
-        path = "./"
-    return path, filename
 
 path, filename = GetPathAndName(output_filename)
 singleexon_output_filename = path + "singleexon_" + filename

@@ -4,12 +4,7 @@ import sys
 import os
 import threading
 from binaidp import log_command
-
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])+'/'
-    return path, filename
+from idp_utils import *
 
 #Main**************************************************************************#
 def main():
@@ -24,9 +19,7 @@ def main():
     output_filename = 'refSeq_MLE_input.txt'
     
     reads_file = open(reads_filename, 'r' )
-    reads_files = []
-    for thread_idx in range(num_threads):
-        reads_files.append(open(reads_filename + '.' + str(thread_idx), 'w'))
+    reads_files = [open(reads_filename + '.' + str(thread_idx), 'w') for thread_idx in xrange(num_threads)]
 
         
     thread_idx = 0

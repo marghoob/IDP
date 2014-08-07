@@ -8,25 +8,9 @@ from re import *
 from copy import *
 import threading
 import string
+from idp_utils import *
 from binaidp import log_command
 import inspect # JW for debugging
-
-################################################################################
-
-
-######### GetPathAndName ##########
-# Break a path+filename into its components
-#
-# Pre:  Takes a filename
-# Post: Return the path and filename strings
-# Modifies:  None
-###################################
-def GetPathAndName(pathfilename):
-    ls=pathfilename.split('/')
-    filename=ls[-1]
-    path='/'.join(ls[0:-1])+'/'
-    return path, filename
-
 
 ######### Readcfgfile ##########
 # Read/Parse in the configuration file
